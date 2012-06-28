@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="AchievementManager.View.Components.CommentComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="130" d:DesignWidth="600">
+    <Grid MinHeight="130" MaxHeight="130">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        
+        <StackPanel Height="30" Margin="0" VerticalAlignment="Bottom" Grid.Row="0" Orientation="Horizontal" Background="LightBlue">
+            <Label Margin="0" VerticalAlignment="Bottom" Content="{Binding TimestampText, FallbackValue='2011-10-10 21:34'}" FontWeight="Bold" />
+        </StackPanel>
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+            <TextBox Margin="0" Height="100" IsReadOnly="False" Background="#EEEEFE" Text="{Binding Text, FallbackValue='This is a comment'}" FontSize="14" FontFamily="Calibri" AcceptsReturn="True" AcceptsTab="False" MaxLength="512" TextWrapping="WrapWithOverflow" HorizontalAlignment="Stretch" />
+        </Grid>
+    </Grid>
+</UserControl>

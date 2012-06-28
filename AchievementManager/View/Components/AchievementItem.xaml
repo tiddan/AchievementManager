@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="AchievementManager.View.Components.AchievementItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:m="clr-namespace:AchievementManager.Model"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="300">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding Percent, FallbackValue=70*, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                <ColumnDefinition Width="{Binding PercentRest, FallbackValue=30*, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.Column="0" Fill="LightGreen" />
+            <Rectangle Grid.Column="1" Fill="Red" />
+        </Grid>
+       
+        <Border Background="White" Margin="3" CornerRadius="0" BorderBrush="Black" BorderThickness="1">
+            <Label HorizontalContentAlignment="Stretch" Content="{Binding Name, FallbackValue='Name of the achievement'}" FontFamily="Calibri" FontSize="14" FontWeight="Bold" />
+        </Border>
+    </Grid>
+</UserControl>

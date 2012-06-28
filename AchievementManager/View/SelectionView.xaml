@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="AchievementManager.View.SelectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:c="clr-namespace:AchievementManager.View.Components"
+             xmlns:m="clr-namespace:AchievementManager.Model"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="100*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Grid.Row="0" Height="25">
+            <MenuItem ToolTip="Add achievement" Width="30" Command="{Binding AddAchievementCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/AchievementManager;component/Icons/Plus.png" Height="24" />
+                </MenuItem.Icon>
+            </MenuItem>
+
+            <MenuItem ToolTip="Remove selected achievement" Width="30" Command="{Binding RemoveAchievementCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/AchievementManager;component/Icons/Minus.png" Height="24" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </StackPanel>
+
+        <!--<ListBox Grid.Row="1" SelectedItem="{Binding SelectedAchievement}" HorizontalContentAlignment="Stretch" Margin="10" ItemsSource="{Binding Achievements}" Width="{Binding ListBoxWidth, Mode=OneWayToSource, NotifyOnTargetUpdated=True}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <c:AchievementItem MinHeight="30" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>-->
+        <TreeView Grid.Row="1" ItemsSource="{Binding Achievements}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectedItemChanged">
+                    <cmd:EventToCommand Command="{Binding SelectedItemChangedCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding SubAchievements}" DataType="{x:Type m:Achievement}">
+                    <Grid>
+                        <!--<TextBlock Text="{Binding Name}" />-->
+                        <c:AchievementItem Width="300" MinHeight="30" />
+                    </Grid>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+            
+        </TreeView>
+
+    </Grid>
+</UserControl>

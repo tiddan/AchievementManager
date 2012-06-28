@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="AchievementManager.View.Components.InfoComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:c="clr-namespace:AchievementManager.Controls"
+             xmlns:vc="clr-namespace:AchievementManager.View.Components"
+             xmlns:m="clr-namespace:AchievementManager.Model"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="95" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="110*"/>
+        </Grid.RowDefinitions>
+
+        <c:ProgressControl IsReadOnly="{Binding IsReadOnly}" ToolTip="Click anywhere on the bar to change the completeness." Percent="{Binding PercentDouble, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"  Margin="10" Grid.Row="1" />
+
+        <StackPanel Grid.Row="0" VerticalAlignment="Bottom" Margin="10">
+            <Label Content="Achievement name:" FontWeight="Bold" />
+            <TextBox VerticalAlignment="Top" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+        </StackPanel>
+
+        <StackPanel Margin="10,0,10,0" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.Row="2" Height="25">
+            <MenuItem ToolTip="Add comment" Width="30" Command="{Binding AddCommentCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/AchievementManager;component/Icons/Plus.png" Height="24" />
+                </MenuItem.Icon>
+            </MenuItem>
+
+            <MenuItem ToolTip="Remove comment" Width="30" Command="{Binding RemoveCommentCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/AchievementManager;component/Icons/Minus.png" Height="24" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </StackPanel>
+        
+        <ListBox SelectedItem="{Binding SelectedComment}" Name="CommentList" HorizontalContentAlignment="Stretch" Margin="10" Grid.Row="3" ItemsSource="{Binding Comments}" MinHeight="80" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <vc:CommentComponent />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+    </Grid>
+</UserControl>
