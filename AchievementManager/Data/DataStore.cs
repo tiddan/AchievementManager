@@ -17,60 +17,52 @@ namespace AchievementManager.Data
     public class DataStore
     {
         // Stores the last accessed file.
-        private static string CurrentFilePath = "";
+        private static string _currentFilePath = "";
 
-        //////////////////////////////////
-        //
-        // [STATIC MEMBERS]
-        //
-        //////////////////////////////////
+        #region Static members
 
         public static void Save(ObservableCollection<Achievement> achievements)
         {
-            if (CurrentFilePath != "")
+            if (_currentFilePath == "") return;
+
+            using (var fs = new FileStream(_currentFilePath, FileMode.Open))
             {
-                using (FileStream fs = new FileStream(CurrentFilePath, FileMode.Open))
-                {
-                    XmlSerializer serializer = new XmlSerializer(achievements.GetType());
-                    serializer.Serialize(fs, achievements);
-                }
+                var serializer = new XmlSerializer(achievements.GetType());
+                serializer.Serialize(fs, achievements);
             }
         }
 
         public static void SaveAs(ObservableCollection<Achievement> achievements)
         {
-            SaveFileDialog saveDialog = new SaveFileDialog();
-            saveDialog.Filter = "Data files (*.save)|*.save;";
-            bool? ok = saveDialog.ShowDialog();
+            var saveDialog = new SaveFileDialog {Filter = "Data files (*.save)|*.save;"};
+            var ok = saveDialog.ShowDialog();
 
-            if (ok.HasValue && ok.Value == true)
+            if (ok.Value != true) return;
+
+            _currentFilePath = saveDialog.FileName;
+            using (var fs = saveDialog.OpenFile())
             {
-                CurrentFilePath = saveDialog.FileName;
-
-                using (Stream fs = saveDialog.OpenFile())
-                {
-                    XmlSerializer serializer = new XmlSerializer(achievements.GetType());
-                    serializer.Serialize(fs, achievements);
-                }
+                var serializer = new XmlSerializer(achievements.GetType());
+                serializer.Serialize(fs, achievements);
             }
         }
 
         public static void Open(string filePath, ref ObservableCollection<Achievement> achievements)
         {
-            OpenFileDialog openDialog = new OpenFileDialog();
-            openDialog.Filter = "Data files (*.save)|*.save;";
-            bool? ok = openDialog.ShowDialog();
+            var openDialog = new OpenFileDialog {Filter = "Data files (*.save)|*.save;"};
+            var ok = openDialog.ShowDialog();
 
-            if (ok.HasValue && ok.Value==true)
+            if (!ok.Value) return;
+            
+            _currentFilePath = openDialog.FileName;
+            using (var fs = openDialog.OpenFile())
             {
-                CurrentFilePath = openDialog.FileName;
-
-                using (Stream fs = openDialog.OpenFile())
-                {
-                    XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<Achievement>));
-                    achievements = (ObservableCollection<Achievement>)serializer.Deserialize(fs);
-                }
+                var serializer = new XmlSerializer(typeof(ObservableCollection<Achievement>));
+                achievements = (ObservableCollection<Achievement>)serializer.Deserialize(fs);
             }
         }
+
+        #endregion
+
     }
 }

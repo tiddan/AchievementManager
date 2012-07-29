@@ -14,11 +14,7 @@ namespace AchievementManager.ViewModel
 {
     public class SelectionViewModel : ViewModelBase
     {
-        //////////////////////////////////
-        //
-        // [VARIABLES]
-        //
-        //////////////////////////////////
+        #region Variables
 
         private RelayCommand _addAchievementCommand;
         private RelayCommand _removeAchievementCommand;
@@ -27,19 +23,15 @@ namespace AchievementManager.ViewModel
         private Achievement _selectedAchievement = null;
         private double _listBoxWidth = 0;
 
-        //////////////////////////////////
-        //
-        // [EVENTS]
-        //
-        //////////////////////////////////
+        #endregion
+
+        #region Events
 
         public static event EventHandler RefreshPercentage;
 
-        //////////////////////////////////
-        //
-        // [PROPERTIES]
-        //
-        //////////////////////////////////
+        #endregion
+
+        #region Properties
 
         public ObservableCollection<Achievement> Achievements
         {
@@ -84,6 +76,10 @@ namespace AchievementManager.ViewModel
             }
         }
 
+        #endregion
+
+        #region Commands
+
         public ICommand AddAchievementCommand
         {
             get
@@ -120,11 +116,9 @@ namespace AchievementManager.ViewModel
             }
         }
 
-        //////////////////////////////////
-        //
-        // [CONSTRUCTOR]
-        //
-        //////////////////////////////////
+        #endregion
+
+        #region Constructors
 
         public SelectionViewModel()
         {
@@ -132,11 +126,9 @@ namespace AchievementManager.ViewModel
             RefreshPercentage += new EventHandler(SelectionViewModel_RefreshPercentage);
         }
 
-        //////////////////////////////////
-        //
-        // [MEMBERS]
-        //
-        //////////////////////////////////
+        #endregion
+
+        #region Members
 
         private void SelectionViewModel_RefreshPercentage(object sender, EventArgs e)
         {
@@ -203,5 +195,8 @@ namespace AchievementManager.ViewModel
         {
             SelectedAchievement = ((args.Source as TreeView).SelectedItem as Achievement);
         }
+
+        #endregion
+
     }
 }

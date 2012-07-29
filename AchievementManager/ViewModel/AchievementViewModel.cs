@@ -9,19 +9,13 @@ namespace AchievementManager.ViewModel
 {
     public class AchievementViewModel : ViewModelBase
     {
-        //////////////////////////////////
-        //
-        // [VARIABLES]
-        //
-        //////////////////////////////////
+        #region Variables
 
         private SelectionViewModel _selectionViewModel = null;
 
-        //////////////////////////////////
-        //
-        // [PROPERTIES]
-        //
-        //////////////////////////////////
+        #endregion
+
+        #region Properties
 
         public SelectionViewModel SelectionViewModel
         {
@@ -55,22 +49,18 @@ namespace AchievementManager.ViewModel
             }
         }
 
-        //////////////////////////////////
-        //
-        // [CONSTRUCTOR]
-        //
-        //////////////////////////////////
+        #endregion
+
+        #region Constructors
 
         public AchievementViewModel()
         {
             SelectionViewModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(SelectionViewModel_PropertyChanged);
         }
 
-        //////////////////////////////////
-        //
-        // [MEMBERS]
-        //
-        //////////////////////////////////
+        #endregion
+
+        #region Members
 
         private void SelectionViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -80,5 +70,7 @@ namespace AchievementManager.ViewModel
                 OnPropertyChanged("SelectionViewModel.SelectedAchievement");
             }
         }
+
+        #endregion
     }
 }

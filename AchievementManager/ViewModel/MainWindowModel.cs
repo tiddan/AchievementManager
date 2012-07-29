@@ -14,11 +14,7 @@ namespace AchievementManager.ViewModel
 {
     public class MainWindowModel : ViewModelBase
     {
-        //////////////////////////////////
-        //
-        // [VARIABLES]
-        //
-        //////////////////////////////////
+        #region Variables
 
         private RelayCommand _saveCommand;
         private RelayCommand _saveAsCommand;
@@ -29,22 +25,17 @@ namespace AchievementManager.ViewModel
         private RelayCommand _up;
         private RelayCommand _down;
 
+        #endregion
 
-        //////////////////////////////////
-        //
-        // [CONSTRUCTOR]
-        //
-        //////////////////////////////////
+        #region Constructors
 
         public MainWindowModel()
         {
         }
 
-        //////////////////////////////////
-        //
-        // [PROPERTIES]
-        //
-        //////////////////////////////////
+        #endregion
+
+        #region Properties
 
         private ObservableCollection<ViewModelBase> _viewModels = null;
 
@@ -66,11 +57,9 @@ namespace AchievementManager.ViewModel
             }
         }
 
-        //////////////////////////////////
-        //
-        // [COMMANDS]
-        //
-        //////////////////////////////////
+        #endregion
+
+        #region Commands
 
         public ICommand SaveCommand
         {
@@ -168,12 +157,9 @@ namespace AchievementManager.ViewModel
             }
         }
 
+        #endregion
 
-        //////////////////////////////////
-        //
-        // [MEMBERS]
-        //
-        //////////////////////////////////
+        #region Members
 
         public void SwitchView(ViewModelBase newView)
         {
@@ -221,6 +207,8 @@ namespace AchievementManager.ViewModel
         public void DecrementExecute()
         {
         }
+
+        #endregion
 
     }
 }
